@@ -15,7 +15,7 @@ jobs:
     name: Register Dataset
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -24,7 +24,7 @@ jobs:
       - name: Register dataset
         run: python week_3_mls/model_building/data_register.py
       - name: Upload registered dataset
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: registered-data
           path: week_3_mls/data/machine-failure-prediction.csv
@@ -35,7 +35,7 @@ jobs:
     needs: register-dataset          # waits for Job 1 to finish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -44,7 +44,7 @@ jobs:
       - name: Prepare data
         run: python week_3_mls/model_building/prep.py
       - name: Upload train/test splits
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: data-splits
           path: |
@@ -59,14 +59,14 @@ jobs:
     needs: data-preparation          # waits for Job 2 to finish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install -r week_3_mls/requirements.txt
       - name: Download train/test splits
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: data-splits          # brings Xtrain/Xtest/ytrain/ytest from Job 2
       - name: Start MLflow tracking server
